@@ -14,6 +14,11 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\VoyageController;
 
+
+Route::get('/user', function () {
+    return response()->json(['message' => 'Unauthenticated']);
+})->name('user');
+
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -26,7 +31,7 @@ Route::prefix('admin')->group(function () {
     Route::delete('/reservations/{id}', [ReservationController::class, 'destroy']);
     Route::put('/reservations/{id}/status', [ReservationController::class, 'updateStatus']);
 
-    // Clients 
+    // Clients
     Route::get('/clients', [ClientController::class, 'adminIndex']);
     Route::get('/clients/{id}', [ClientController::class, 'adminShow']);
     Route::delete('/clients/{id}', [ClientController::class, 'adminDestroy']);
